@@ -26,6 +26,11 @@ class DefTranslator
 		return true;
 	}
 
+	private function DeleteComments()
+	{
+		
+	}
+
 	public function GetTranslatedPage()
 	{
 		return $this->html_DOM_code_finish->save();
