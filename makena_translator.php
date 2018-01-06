@@ -11,7 +11,7 @@ class DefTranslator
 
 	function __construct($UrlName)
 	{
-		$html_DOM_code = file_get_html($UrlName);
+		$this->html_DOM_code = file_get_html($UrlName);
 	}
 }
 
