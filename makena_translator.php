@@ -35,7 +35,12 @@ class DefTranslator
 
 	private function InitSourceContent()
 	{
-		
+		for ($raw = 0, $size = count($this->whole_body_text_arr); $raw < $size; $raw++) 
+			if (! preg_match( "/^\s*$/", $this->whole_body_text_arr[$raw] ) && preg_match( "/[а-яА-ЯёЁ]/u", $this->whole_body_text_arr[$raw] ) )
+			{
+				$this->source_content_arr[] = $this->whole_body_text_arr[$raw]->plaintext;
+				$this->mod_source_content_arr[] = $this->GetTrimmedAndUnEntitiedString($this->whole_body_text_arr[$raw]->plaintext);
+			}
 	}
 
 	private function DeleteComments()
@@ -47,6 +52,7 @@ class DefTranslator
 	{
 		if ( $this->lang_in === $this->lang_out || $this->html_DOM_code === false ) return false;
 		$this->DeleteComments();
+		$this->InitSourceContent();
 		//code
 		return true;
 	}
