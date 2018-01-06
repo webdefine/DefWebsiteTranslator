@@ -5,9 +5,11 @@
 */
 class DefTranslator 
 {
+	private $html_DOM_code;
+
 	function __construct($UrlName)
 	{
-		# code...
+		$html_DOM_code = file_get_html($UrlName);
 	}
 }
 
