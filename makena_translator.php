@@ -12,9 +12,11 @@ class DefTranslator
 	private $lang_in;
 	private $lang_out;
 
-	function __construct($UrlName)
+	function __construct($UrlName, $TargetLang = 'en', $SourceLang = 'ru')
 	{
 		$this->html_DOM_code = file_get_html($UrlName);
+		$this->lang_in = $SourceLang;
+		$this->lang_out = $TargetLang;
 	}
 
 	public function GetTranslatedPage()
