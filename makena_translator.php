@@ -12,6 +12,7 @@ class DefTranslator
 	private $lang_in;
 	private $lang_out;
 
+	private $whole_body_text_arr = array();
 	private $source_content_arr = array();
 	private $mod_source_content_arr = array();
 
@@ -23,6 +24,8 @@ class DefTranslator
 		$this->html_DOM_code = file_get_html($UrlName);
 		$this->lang_in = $SourceLang;
 		$this->lang_out = $TargetLang;
+
+		$this->whole_body_text_arr = $this->html_DOM_code->find('body',0)->find('text');	
 	}
 
 	private function GetTrimmedAndUnEntitiedString($string)
