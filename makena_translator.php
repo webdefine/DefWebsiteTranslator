@@ -8,6 +8,7 @@ require($_SERVER[DOCUMENT_ROOT] . '/html_dom_parser_src/simple_html_dom.php');
 class DefTranslator 
 {
 	private $html_DOM_code;
+	private $html_DOM_code_finish;
 
 	function __construct($UrlName)
 	{
