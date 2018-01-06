@@ -15,4 +15,7 @@ class DefTranslator
 	}
 }
 
+//Example part
+$Translator = new DefTranslator('http://makena.ru/');
+
 ?>
