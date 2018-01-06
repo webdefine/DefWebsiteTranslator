@@ -50,6 +50,11 @@ class DefTranslator
 			}
 	}
 
+	private function InitTargetContent()
+	{
+		
+	}
+
 	public function Translate()
 	{
 		if ( $this->lang_in === $this->lang_out || $this->html_DOM_code === false ) return false;
