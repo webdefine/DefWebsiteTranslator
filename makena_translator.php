@@ -8,8 +8,11 @@ require($_SERVER[DOCUMENT_ROOT] . '/html_dom_parser_src/simple_html_dom.php');
 class DefTranslator 
 {
 	private $html_DOM_code;
+
 	private $lang_in;
 	private $lang_out;
+
+	private $source_content_arr = array();
 
 	function __construct($UrlName, $TargetLang = 'en', $SourceLang = 'ru')
 	{
@@ -22,7 +25,7 @@ class DefTranslator
 	{
 		foreach ( $this->html_DOM_code->find('comment') as $e ) $e->outertext = '';
 	}
-	
+
 	public function Translate()
 	{
 		if ( $this->lang_in === $this->lang_out || $this->html_DOM_code === false ) return false;
