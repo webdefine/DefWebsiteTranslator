@@ -18,17 +18,17 @@ class DefTranslator
 		$this->lang_out = $TargetLang;
 	}
 
+	private function DeleteComments()
+	{
+		foreach ( $this->html_DOM_code->find('comment') as $e ) $e->outertext = '';
+	}
+	
 	public function Translate()
 	{
 		if ( $this->lang_in === $this->lang_out || $this->html_DOM_code === false ) return false;
 		$this->DeleteComments();
 		//code
 		return true;
-	}
-
-	private function DeleteComments()
-	{
-		foreach ( $this->html_DOM_code->find('comment') as $e ) $e->outertext = '';
 	}
 
 	public function GetTranslatedPage()
