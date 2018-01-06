@@ -9,6 +9,8 @@ class DefTranslator
 {
 	private $html_DOM_code;
 	private $html_DOM_code_finish;
+	private $lang_in;
+	private $lang_out;
 
 	function __construct($UrlName)
 	{
