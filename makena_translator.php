@@ -21,7 +21,9 @@ class DefTranslator
 
 	public function Translate()
 	{
-		
+		if ($this->lang_in === $this->lang_out || $this->html_DOM_code === false ) return false;
+		//code
+		return true;
 	}
 
 	public function GetTranslatedPage()
