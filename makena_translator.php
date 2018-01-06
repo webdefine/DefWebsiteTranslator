@@ -33,6 +33,11 @@ class DefTranslator
 		return preg_replace($entity_patterns, $entity_replacement, trim($string));
 	}
 
+	private function InitSourceContent()
+	{
+		
+	}
+
 	private function DeleteComments()
 	{
 		foreach ( $this->html_DOM_code->find('comment') as $e ) $e->outertext = '';
