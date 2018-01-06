@@ -14,9 +14,13 @@ class DefTranslator
 	{
 		$this->html_DOM_code = file_get_html($UrlName);
 	}
+
+	public function GetTranslatedPage()
+	{
+		return $this->html_DOM_code_finish->save();
+	}
 }
 
 //Example part
 $Translator = new DefTranslator('http://makena.ru/');
-
 ?>
