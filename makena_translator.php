@@ -34,4 +34,6 @@ class DefTranslator
 
 //Example part
 $Translator = new DefTranslator('http://makena.ru/');
+echo $Translator->Translate() ? 'true' : 'false';
+
 ?>
