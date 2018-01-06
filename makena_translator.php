@@ -13,6 +13,10 @@ class DefTranslator
 	private $lang_out;
 
 	private $source_content_arr = array();
+	private $mod_source_content_arr = array();
+
+	private $entity_patterns = array('/&#8230;/','/&ndash;/','/&nbsp;/','/&(r|l)aquo;/');
+	private $entity_replacement = array('...',' - ',' ','"');
 
 	function __construct($UrlName, $TargetLang = 'en', $SourceLang = 'ru')
 	{
