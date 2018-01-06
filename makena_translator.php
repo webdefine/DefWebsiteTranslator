@@ -8,7 +8,6 @@ require($_SERVER[DOCUMENT_ROOT] . '/html_dom_parser_src/simple_html_dom.php');
 class DefTranslator 
 {
 	private $html_DOM_code;
-	private $html_DOM_code_finish;
 	private $lang_in;
 	private $lang_out;
 
@@ -34,7 +33,7 @@ class DefTranslator
 
 	public function GetTranslatedPage()
 	{
-		return $this->html_DOM_code_finish->save();
+		return $this->html_DOM_code->save();
 	}
 }
 
