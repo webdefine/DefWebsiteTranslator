@@ -15,6 +15,8 @@ class DefTranslator
 	private $whole_body_text_arr = array();
 	private $source_content_arr = array();
 	private $mod_source_content_arr = array();
+	
+	private $target_content_arr = array();
 
 	private $entity_patterns = array('/&#8230;/','/&ndash;/','/&nbsp;/','/&(r|l)aquo;/');
 	private $entity_replacement = array('...',' - ',' ','"');
