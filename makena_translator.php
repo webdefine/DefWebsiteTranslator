@@ -30,7 +30,7 @@ class DefTranslator
 
 	private function GetTrimmedAndUnEntitiedString($string)
 	{
-		return preg_replace($entity_patterns, $entity_replacement, trim($string));
+		return preg_replace($this->entity_patterns, $this->entity_replacement, trim($string));
 	}
 
 	private function InitSourceContent()
