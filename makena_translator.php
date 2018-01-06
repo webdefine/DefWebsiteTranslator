@@ -60,6 +60,7 @@ class DefTranslator
 		if ( $this->lang_in === $this->lang_out || $this->html_DOM_code === false ) return false;
 		$this->DeleteComments();
 		$this->InitSourceContent();
+		$this->InitTargetContent();
 		//code
 		return true;
 	}
