@@ -19,6 +19,11 @@ class DefTranslator
 		$this->lang_out = $TargetLang;
 	}
 
+	public function Translate()
+	{
+		
+	}
+
 	public function GetTranslatedPage()
 	{
 		return $this->html_DOM_code_finish->save();
