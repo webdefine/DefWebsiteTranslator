@@ -74,8 +74,25 @@ class DefTranslator
 		{
 			$this->target_content_arr = explode("\n",$this->GetTranslatedText($mod_source_content_string));
 			return;
+		}	
+
+		//separation
+		$sep_mod_source_content_string_arr = array();
+		while (strlen($mod_source_content_string) > 8000)
+		{
+			$sep_mod_source_content_string_arr[] = substr( $mod_source_content_string, 0, strpos($mod_source_content_string, "\n", 7500) + 1);
+			$mod_source_content_string = substr( $mod_source_content_string, strpos($mod_source_content_string, "\n", 7500));
 		}
-		return;
+			$sep_mod_source_content_string_arr[] = $mod_source_content_string;
+
+		//merging
+		$target_content_string = '';
+		for ($raw = 0, $size = count($sep_mod_source_content_string_arr); $raw < $size; $raw++)
+			$target_content_string = $target_content_string . "\n" . $this->GetTranslatedText($sep_mod_source_content_string_arr[$raw]);
+
+		//translating and initializing
+		$this->target_content_arr = explode("\n",$target_content_string);
+		array_shift($this->target_content_arr);
 	}
 
 	public function Translate()
