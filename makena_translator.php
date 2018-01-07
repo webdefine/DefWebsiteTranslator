@@ -1,6 +1,9 @@
 <?php
 
 require($_SERVER[DOCUMENT_ROOT] . '/html_dom_parser_src/simple_html_dom.php');
+require($_SERVER[DOCUMENT_ROOT] . '/transl_src/vendor/autoload.php');
+
+use \Statickidz\GoogleTranslate;
 
 /**
 * This is a class which is created for translating websites (special for "MAKENA")
@@ -21,13 +24,17 @@ class DefTranslator
 	private $entity_patterns = array('/&#8230;/','/&ndash;/','/&nbsp;/','/&(r|l)aquo;/');
 	private $entity_replacement = array('...',' - ',' ','"');
 
+	private $transl_class;
+
 	function __construct($UrlName, $TargetLang = 'en', $SourceLang = 'ru')
 	{
 		$this->html_DOM_code = file_get_html($UrlName);
 		$this->lang_in = $SourceLang;
 		$this->lang_out = $TargetLang;
 
-		$this->whole_body_text_arr = $this->html_DOM_code->find('body',0)->find('text');	
+		$this->whole_body_text_arr = $this->html_DOM_code->find('body',0)->find('text');
+
+		$this->transl_class = new GoogleTranslate();
 	}
 
 	private function DeleteComments()
@@ -52,7 +59,7 @@ class DefTranslator
 
 	private function InitTargetContent()
 	{
-		
+		return;
 	}
 
 	public function Translate()
@@ -74,5 +81,6 @@ class DefTranslator
 //Example part
 $Translator = new DefTranslator('http://makena.ru/');
 echo $Translator->Translate() ? 'true' : 'false';
+
 
 ?>
