@@ -28,6 +28,8 @@ class DefTranslator
 	private $entity_patterns = array('/&#8230;/','/&ndash;/','/&nbsp;/','/&(r|l)aquo;/');
 	private $entity_replacement = array('...',' - ',' ','"');
 
+	private $lang_alph_regex;
+
 	private $transl_class;
 
 	function __construct($UrlName, $TargetLang = 'en', $SourceLang = 'ru')
@@ -39,6 +41,21 @@ class DefTranslator
 		$this->whole_body_text_arr = $this->html_DOM_code->find('body',0)->find('text');
 
 		$this->transl_class = new GoogleTranslate();
+
+		switch ($this->lang_in) 
+		{
+			case 'ru':
+				$this->lang_alph_regex = '[а-яА-ЯёЁ]';
+				break;
+			
+			case 'en':
+				$this->lang_alph_regex = '[a-zA-Z]';
+				break;
+
+			default:
+				$this->lang_alph_regex = '[а-яА-ЯёЁ]';
+				break;
+		}
 	}
 
 	private function DeleteComments()
@@ -54,7 +71,7 @@ class DefTranslator
 	private function InitSourceContent()
 	{
 		for ($raw = 0, $size = count($this->whole_body_text_arr); $raw < $size; $raw++) 
-			if (! preg_match( "/^\s*$/", $this->whole_body_text_arr[$raw] ) && preg_match( "/[а-яА-ЯёЁ]/u", $this->whole_body_text_arr[$raw] ) )
+			if (! preg_match( "/^\s*$/", $this->whole_body_text_arr[$raw] ) && preg_match( "/{$this->lang_alph_regex}/u", $this->whole_body_text_arr[$raw] ) )
 			{
 				$this->source_content_arr[] = $this->whole_body_text_arr[$raw]->plaintext;
 				$this->mod_source_content_arr[] = $this->GetTrimmedAndUnEntitiedString($this->whole_body_text_arr[$raw]->plaintext);
@@ -99,7 +116,7 @@ class DefTranslator
 	{
 		$target_content_arr_counter = 0;
 		for ($raw = 0, $size = count($this->whole_body_text_arr); $raw < $size; $raw++) 
-			if (! preg_match( "/^\s*$/", $this->whole_body_text_arr[$raw] ) && preg_match( "/[а-яА-ЯёЁ]/u", $this->whole_body_text_arr[$raw] ) )
+			if (! preg_match( "/^\s*$/", $this->whole_body_text_arr[$raw] ) && preg_match( "/{$this->lang_alph_regex}/u", $this->whole_body_text_arr[$raw] ) )
 			{
 				$this->whole_body_text_arr[$raw]->innertext = $this->target_content_arr[$target_content_arr_counter];
 				$target_content_arr_counter++;
