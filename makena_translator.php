@@ -97,7 +97,13 @@ class DefTranslator
 
 	private function ExchngeDOMContent()
 	{
-		
+		$target_content_arr_counter = 0;
+		for ($raw = 0, $size = count($this->whole_body_text_arr); $raw < $size; $raw++) 
+			if (! preg_match( "/^\s*$/", $this->whole_body_text_arr[$raw] ) && preg_match( "/[а-яА-ЯёЁ]/u", $this->whole_body_text_arr[$raw] ) )
+			{
+				$this->whole_body_text_arr[$raw]->innertext = $this->target_content_arr[$target_content_arr_counter];
+				$target_content_arr_counter++;
+			}
 	}
 
 	public function Translate()
@@ -106,6 +112,7 @@ class DefTranslator
 		$this->DeleteComments();
 		$this->InitSourceContent();
 		$this->InitTargetContent();
+		$this->ExchngeDOMContent();
 		//code
 		return true;
 	}
