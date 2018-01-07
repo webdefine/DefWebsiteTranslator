@@ -127,7 +127,7 @@ class DefTranslator
 	{	
 		$placeholder_string_source = '';
 		$placeholder_string_target_arr = array();
-		$placeholder_DOM_code = $this->html_DOM_code->find('input[placeholder]');
+		$placeholder_DOM_code = $this->html_DOM_code->find('*[placeholder]');
 
 		foreach ( $placeholder_DOM_code  as $value )
 			if (preg_match( "/{$this->lang_alph_regex}/u", $value->{'placeholder'} ) ) 
