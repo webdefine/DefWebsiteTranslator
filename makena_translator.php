@@ -1,7 +1,7 @@
 <?php
 
-require($_SERVER[DOCUMENT_ROOT] . '/html_dom_parser_src/simple_html_dom.php');
-require($_SERVER[DOCUMENT_ROOT] . '/transl_src/vendor/autoload.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/html_dom_parser_src/simple_html_dom.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/transl_src/vendor/autoload.php');
 
 use \Statickidz\GoogleTranslate;
 
