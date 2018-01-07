@@ -161,9 +161,9 @@ class DefTranslator
 	}
 }
 
-//Example part
-$Translator = new DefTranslator('http://makena.ru/');
-if ($Translator->Translate() === true) echo $Translator->GetTranslatedPage();
-else echo "Failure :(";
+/*Example part
+	$Translator = new DefTranslator('http://makena.ru/');
+	if ($Translator->Translate() === true) echo $Translator->GetTranslatedPage();
+	else echo "Failure :(";*/
 
 ?>
