@@ -124,8 +124,24 @@ class DefTranslator
 	}
 
 	private function TranslatePlaceholders()
-	{
-		return;
+	{	
+		$placeholder_string_source = '';
+		$placeholder_string_target_arr = array();
+		$placeholder_DOM_code = $this->html_DOM_code->find('input[placeholder]');
+
+		foreach ( $placeholder_DOM_code  as $value )
+			if (preg_match( "/{$this->lang_alph_regex}/u", $value->{'placeholder'} ) ) 
+				$placeholder_string_source = $placeholder_string_source . "\n" . $value->{'placeholder'};
+
+		$placeholder_string_target_arr = explode("\n", $this->GetTranslatedText($placeholder_string_source));
+
+		$placeholder_string_target_arr_counter = 0;
+		foreach ( $placeholder_DOM_code  as $value )
+			if (preg_match( "/{$this->lang_alph_regex}/u", $value->{'placeholder'} ) )
+			{
+				$value->{'placeholder'} = $placeholder_string_target_arr[$placeholder_string_target_arr_counter];
+				$placeholder_string_target_arr_counter++;
+			}
 	}
 
 	public function Translate()
@@ -135,6 +151,7 @@ class DefTranslator
 		$this->InitSourceContent();
 		$this->InitTargetContent();
 		$this->ExchngeDOMContent();
+		$this->TranslatePlaceholders();
 		return true;
 	}
 
