@@ -59,11 +59,18 @@ class DefTranslator
 
 	private function GetTranslatedText($text)
 	{
-		return $this->trans_class->translate($this->lang_in, $this->lang_out, $text);
+		return $this->transl_class->translate($this->lang_in, $this->lang_out, $text);
 	}
 
 	private function InitTargetContent()
 	{
+		$mod_source_content_string = implode("\n", $this->mod_source_content_arr);
+
+		if (strlen($mod_source_content_string) <= 8000) 
+		{
+			$this->target_content_arr = explode("\n",$this->GetTranslatedText($mod_source_content_string));
+			return;
+		}
 		return;
 	}
 
