@@ -57,6 +57,11 @@ class DefTranslator
 			}
 	}
 
+	private function GetTranslatedText($text)
+	{
+		return $this->trans_class->translate($this->lang_in, $this->lang_out, $text);
+	}
+
 	private function InitTargetContent()
 	{
 		return;
