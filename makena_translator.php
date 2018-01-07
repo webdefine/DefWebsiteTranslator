@@ -113,7 +113,6 @@ class DefTranslator
 		$this->InitSourceContent();
 		$this->InitTargetContent();
 		$this->ExchngeDOMContent();
-		//code
 		return true;
 	}
 
@@ -125,7 +124,7 @@ class DefTranslator
 
 //Example part
 $Translator = new DefTranslator('http://makena.ru/');
-echo $Translator->Translate() ? 'true' : 'false';
-
+if ($Translator->Translate() === true) echo $Translator->GetTranslatedPage();
+else echo "Failure :(";
 
 ?>
