@@ -5,6 +5,10 @@ require($_SERVER[DOCUMENT_ROOT] . '/transl_src/vendor/autoload.php');
 
 use \Statickidz\GoogleTranslate;
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 /**
 * This is a class which is created for translating websites (special for "MAKENA")
 */
