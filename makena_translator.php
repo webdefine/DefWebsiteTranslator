@@ -95,6 +95,11 @@ class DefTranslator
 		array_shift($this->target_content_arr);
 	}
 
+	private function ExchngeDOMContent()
+	{
+		
+	}
+
 	public function Translate()
 	{
 		if ( $this->lang_in === $this->lang_out || $this->html_DOM_code === false ) return false;
