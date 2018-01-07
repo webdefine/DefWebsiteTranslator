@@ -123,6 +123,11 @@ class DefTranslator
 			}
 	}
 
+	private function TranslatePlaceholders()
+	{
+		return;
+	}
+
 	public function Translate()
 	{
 		if ( $this->lang_in === $this->lang_out || $this->html_DOM_code === false || ( $this->lang_in !== 'en' && $this->lang_in !== 'ru')) return false;
