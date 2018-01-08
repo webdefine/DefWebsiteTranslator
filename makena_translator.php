@@ -43,7 +43,9 @@ class DefTranslator
 
 	function __construct($UrlName, $TargetLang = 'en', $SourceLang = 'ru')
 	{
-		$this->html_DOM_code = file_get_html($UrlName);
+		if ( preg_match('/^https?:\/\/.*/', $UrlName) ) $this->html_DOM_code = str_get_html( $this->url_get_contents($UrlName) );
+        else $this->html_DOM_code = str_get_html( file_get_contents($UrlName) );
+        
 		$this->lang_in = $SourceLang;
 		$this->lang_out = $TargetLang;
 
