@@ -1,9 +1,7 @@
 <?php
 
 require($_SERVER['DOCUMENT_ROOT'] . '/html_dom_parser_src/simple_html_dom.php');
-require($_SERVER['DOCUMENT_ROOT'] . '/transl_src/vendor/autoload.php');
-
-use \Statickidz\GoogleTranslate;
+require($_SERVER['DOCUMENT_ROOT'] . '/transl_src/GoogleTranslate.php');
 
 /**
 * This is a class which is created for translating websites (special for "MAKENA")
