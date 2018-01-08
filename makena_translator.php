@@ -69,6 +69,11 @@ class DefTranslator
 		}
 	}
 
+	private function InitDOMBody()
+	{
+		$this->whole_body_text_arr = $this->html_DOM_code->find('body',0)->find('text');
+	}
+
 	private function DeleteComments()
 	{
 		foreach ( $this->html_DOM_code->find('comment') as $e ) $e->outertext = '';
@@ -161,7 +166,7 @@ class DefTranslator
 		if ( $this->lang_in === $this->lang_out ) die( 'No point to translate if source language and target language are the same language' ); 
 		if ( $this->lang_in !== 'en' && $this->lang_in !== 'ru' ) die( 'can\'t translate site from source language you set' );
 
-		$this->whole_body_text_arr = $this->html_DOM_code->find('body',0)->find('text');
+		$this->InitDOMBody();
 
 		$this->DeleteComments();
 		$this->InitSourceContent();
