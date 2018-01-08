@@ -74,11 +74,6 @@ class DefTranslator
 		$this->whole_body_text_arr = $this->html_DOM_code->find('body',0)->find('text');
 	}
 
-	private function DeleteComments()
-	{
-		foreach ( $this->html_DOM_code->find('comment') as $e ) $e->outertext = '';
-	}
-
 	private function GetTrimmedAndUnEntitiedString($string)
 	{
 		return preg_replace($this->entity_patterns, $this->entity_replacement, trim($string));
@@ -168,7 +163,6 @@ class DefTranslator
 
 		$this->InitDOMBody();
 
-		$this->DeleteComments();
 		$this->InitSourceContent();
 		$this->InitTargetContent();
 		$this->ExchangeDOMContent();
