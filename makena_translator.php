@@ -41,6 +41,9 @@ class DefTranslator
 
 	function __construct($UrlName, $TargetLang = 'en', $SourceLang = 'ru')
 	{
+		if ( ! class_exists( 'simple_html_dom_node' ) ) die( 'simple_html_dom_parser was not found' );
+		if ( ! class_exists( 'GoogleTranslate' ) ) die( 'GoogleTranslate-class was not found' );
+		
 		if ( preg_match('/^https?:\/\/.*/', $UrlName) ) 
 			$this->html_DOM_code = str_get_html( $this->url_get_contents($UrlName) );
         else 
