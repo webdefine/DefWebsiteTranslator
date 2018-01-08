@@ -43,15 +43,13 @@ class DefTranslator
 
 	function __construct($UrlName, $TargetLang = 'en', $SourceLang = 'ru')
 	{
-		if ( preg_match('/^https?:\/\/.*/', $UrlName) ) $this->html_DOM_code = str_get_html( $this->url_get_contents($UrlName) );
-        else $this->html_DOM_code = str_get_html( file_get_contents($UrlName) );
-
-        if ($this->html_DOM_code === false) die('Can\'t reach resource');
+		if ( preg_match('/^https?:\/\/.*/', $UrlName) ) 
+			$this->html_DOM_code = str_get_html( $this->url_get_contents($UrlName) );
+        else 
+        	$this->html_DOM_code = str_get_html( file_get_contents($UrlName) );
 
 		$this->lang_in = $SourceLang;
 		$this->lang_out = $TargetLang;
-
-		$this->whole_body_text_arr = $this->html_DOM_code->find('body',0)->find('text');
 
 		$this->transl_class = new GoogleTranslate();
 
@@ -159,12 +157,16 @@ class DefTranslator
 
 	public function Translate()
 	{
+		if ($this->html_DOM_code === false) die('Can\'t reach resource');
 		if ( $this->lang_in === $this->lang_out || ( $this->lang_in !== 'en' && $this->lang_in !== 'ru')) return false;
+		$this->whole_body_text_arr = $this->html_DOM_code->find('body',0)->find('text');
+
 		$this->DeleteComments();
 		$this->InitSourceContent();
 		$this->InitTargetContent();
 		$this->ExchngeDOMContent();
 		$this->TranslatePlaceholders();
+		
 		return true;
 	}
 
