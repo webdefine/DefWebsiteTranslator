@@ -33,6 +33,7 @@ class DefTranslator
 
     	$ch = curl_init();
     	curl_setopt($ch, CURLOPT_URL, $Url);
+    	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     	$output = curl_exec($ch);
     	curl_close($ch);
@@ -167,7 +168,7 @@ class DefTranslator
 }
 
 /*Example part
-	$Translator = new DefTranslator('http://makena.ru/');
+	$Translator = new DefTranslator('https://makena.ru/');
 	if ($Translator->Translate() === true) echo $Translator->GetTranslatedPage();
 	else echo "Failure :(";*/
 
