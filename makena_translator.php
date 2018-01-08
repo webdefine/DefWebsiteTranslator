@@ -123,7 +123,7 @@ class DefTranslator
 		array_shift($this->target_content_arr);
 	}
 
-	private function ExchngeDOMContent()
+	private function ExchangeDOMContent()
 	{
 		$target_content_arr_counter = 0;
 		for ($raw = 0, $size = count($this->whole_body_text_arr); $raw < $size; $raw++) 
@@ -166,7 +166,7 @@ class DefTranslator
 		$this->DeleteComments();
 		$this->InitSourceContent();
 		$this->InitTargetContent();
-		$this->ExchngeDOMContent();
+		$this->ExchangeDOMContent();
 		$this->TranslatePlaceholders();
 
 		return true;
