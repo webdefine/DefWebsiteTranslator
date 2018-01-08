@@ -69,15 +69,9 @@ class DefTranslator
 		}
 	}
 
-	private function InitDOMBody()
-	{
-		$this->whole_body_text_arr = $this->html_DOM_code->find('body',0)->find('text');
-	}
+	private function InitDOMBody() { $this->whole_body_text_arr = $this->html_DOM_code->find('body',0)->find('text'); }
 
-	private function GetTrimmedAndUnEntitiedString($string)
-	{
-		return preg_replace($this->entity_patterns, $this->entity_replacement, trim($string));
-	}
+	private function GetTrimmedAndUnEntitiedString($string) { return preg_replace($this->entity_patterns, $this->entity_replacement, trim($string)); }
 
 	private function InitSourceContent()
 	{
@@ -89,10 +83,7 @@ class DefTranslator
 			}
 	}
 
-	private function GetTranslatedText($text)
-	{
-		return $this->transl_class->translate($this->lang_in, $this->lang_out, $text);
-	}
+	private function GetTranslatedText($text) { return $this->transl_class->translate($this->lang_in, $this->lang_out, $text); }
 
 	private function InitTargetContent()
 	{
@@ -171,10 +162,7 @@ class DefTranslator
 		return true;
 	}
 
-	public function GetTranslatedPage()
-	{
-		return $this->html_DOM_code->save();
-	}
+	public function GetTranslatedPage() { return $this->html_DOM_code->save(); }
 }
 
 /*Example part
