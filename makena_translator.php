@@ -106,14 +106,13 @@ class DefTranslator
 		}
 			$sep_mod_source_content_string_arr[] = $mod_source_content_string;
 
-		//merging
-		$target_content_string = '';
-		for ($raw = 0, $size = count($sep_mod_source_content_string_arr); $raw < $size; $raw++)
+		//translating and merging
+		$target_content_string = $this->GetTranslatedText($sep_mod_source_content_string_arr[0]);
+		for ($raw = 1, $size = count($sep_mod_source_content_string_arr); $raw < $size; $raw++)
 			$target_content_string = $target_content_string . "\n" . $this->GetTranslatedText($sep_mod_source_content_string_arr[$raw]);
 
-		//translating and initializing
+		//initializing
 		$this->target_content_arr = explode("\n",$target_content_string);
-		array_shift($this->target_content_arr);
 	}
 
 	private function ExchangeDOMContent()
