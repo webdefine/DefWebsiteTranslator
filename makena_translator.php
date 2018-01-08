@@ -157,8 +157,10 @@ class DefTranslator
 
 	public function Translate()
 	{
-		if ($this->html_DOM_code === false) die('Can\'t reach resource');
-		if ( $this->lang_in === $this->lang_out || ( $this->lang_in !== 'en' && $this->lang_in !== 'ru')) return false;
+		if ( $this->html_DOM_code === false ) die( 'Can\'t reach resource' );
+		if ( $this->lang_in === $this->lang_out ) die( 'No point to translate if source language and target language are the same language' ); 
+		if ( $this->lang_in !== 'en' && $this->lang_in !== 'ru' ) die( 'can\'t translate site from source language you set' );
+
 		$this->whole_body_text_arr = $this->html_DOM_code->find('body',0)->find('text');
 
 		$this->DeleteComments();
@@ -166,7 +168,7 @@ class DefTranslator
 		$this->InitTargetContent();
 		$this->ExchngeDOMContent();
 		$this->TranslatePlaceholders();
-		
+
 		return true;
 	}
 
