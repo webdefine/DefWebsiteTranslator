@@ -45,7 +45,9 @@ class DefTranslator
 	{
 		if ( preg_match('/^https?:\/\/.*/', $UrlName) ) $this->html_DOM_code = str_get_html( $this->url_get_contents($UrlName) );
         else $this->html_DOM_code = str_get_html( file_get_contents($UrlName) );
-        
+
+        if ($this->html_DOM_code === false) die('Can\'t reach resource');
+
 		$this->lang_in = $SourceLang;
 		$this->lang_out = $TargetLang;
 
@@ -157,7 +159,7 @@ class DefTranslator
 
 	public function Translate()
 	{
-		if ( $this->lang_in === $this->lang_out || $this->html_DOM_code === false || ( $this->lang_in !== 'en' && $this->lang_in !== 'ru')) return false;
+		if ( $this->lang_in === $this->lang_out || ( $this->lang_in !== 'en' && $this->lang_in !== 'ru')) return false;
 		$this->DeleteComments();
 		$this->InitSourceContent();
 		$this->InitTargetContent();
