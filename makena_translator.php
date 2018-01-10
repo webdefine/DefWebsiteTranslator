@@ -109,7 +109,7 @@ class DefTranslator
 		//translating and merging
 		$target_content_string = $this->GetTranslatedText($sep_mod_source_content_string_arr[0]);
 		for ($raw = 1, $size = count($sep_mod_source_content_string_arr); $raw < $size; $raw++)
-			$target_content_string = $target_content_string . "\n" . $this->GetTranslatedText($sep_mod_source_content_string_arr[$raw]);
+			$target_content_string .= "\n" . $this->GetTranslatedText($sep_mod_source_content_string_arr[$raw]);
 
 		//initializing
 		$this->target_content_arr = explode("\n",$target_content_string);
@@ -136,17 +136,17 @@ class DefTranslator
 		{
 			if (preg_match( "/{$this->lang_alph_regex}/u", $value->{'placeholder'} ) ) 
 			{
-				$outbody_string_source = $outbody_string_source . "\n" . $value->{'placeholder'};
+				$outbody_string_source .= "\n" . $value->{'placeholder'};
 				continue;
 			}
 			if (preg_match( "/{$this->lang_alph_regex}/u", $value->{'content'} ) )
 			{
-				$outbody_string_source = $outbody_string_source . "\n" . $value->{'content'};
+				$outbody_string_source .= "\n" . $value->{'content'};
 				continue;	
 			} 
 				
 			if (preg_match( "/{$this->lang_alph_regex}/u", $value->innertext ) ) 
-				$outbody_string_source = $outbody_string_source . "\n" . $value->innertext;
+				$outbody_string_source .= "\n" . $value->innertext;
 		}
 
 		$outbody_string_target_arr = explode("\n", $this->GetTranslatedText($outbody_string_source));
