@@ -135,9 +135,16 @@ class DefTranslator
 		foreach ( $placeholder_DOM_code  as $value )
 		{
 			if (preg_match( "/{$this->lang_alph_regex}/u", $value->{'placeholder'} ) ) 
+			{
 				$placeholder_string_source = $placeholder_string_source . "\n" . $value->{'placeholder'};
-			if (preg_match( "/{$this->lang_alph_regex}/u", $value->{'content'} ) ) 
+				continue;
+			}
+			if (preg_match( "/{$this->lang_alph_regex}/u", $value->{'content'} ) )
+			{
 				$placeholder_string_source = $placeholder_string_source . "\n" . $value->{'content'};
+				continue;	
+			} 
+				
 			if (preg_match( "/{$this->lang_alph_regex}/u", $value->innertext ) ) 
 				$placeholder_string_source = $placeholder_string_source . "\n" . $value->innertext;
 		}
@@ -151,11 +158,13 @@ class DefTranslator
 			{
 				$value->{'placeholder'} = $placeholder_string_target_arr[$placeholder_string_target_arr_counter];
 				$placeholder_string_target_arr_counter++;
+				continue;
 			}
 			if (preg_match( "/{$this->lang_alph_regex}/u", $value->{'content'} ) )
 			{
 				$value->{'content'} = $placeholder_string_target_arr[$placeholder_string_target_arr_counter];
 				$placeholder_string_target_arr_counter++;
+				continue;
 			}
 			if (preg_match( "/{$this->lang_alph_regex}/u", $value->innertext ) )
 			{
@@ -184,9 +193,9 @@ class DefTranslator
 	public function GetTranslatedPage() { return $this->html_DOM_code->save(); }
 }
 
-/*Example part*/
-	$Translator = new DefTranslator('https://makena.ru/');
+/*Example part
+	$Translator = new DefTranslator('http://makena.ru/');
 	if ($Translator->Translate() === true) echo $Translator->GetTranslatedPage();
-	else echo "Failure :(";
+	else echo "Failure :(";*/
 
 ?>
