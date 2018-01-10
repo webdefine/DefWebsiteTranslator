@@ -128,48 +128,48 @@ class DefTranslator
 
 	private function TranslateUnbodyContent()
 	{	
-		$placeholder_string_source = '';
-		$placeholder_string_target_arr = array();
-		$placeholder_DOM_code = $this->html_DOM_code->find('*[placeholder],meta[name=description],title');
+		$outbody_string_source = '';
+		$outbody_string_target_arr = array();
+		$outbody_DOM_code = $this->html_DOM_code->find('*[placeholder],meta[name=description],title');
 
-		foreach ( $placeholder_DOM_code  as $value )
+		foreach ( $outbody_DOM_code  as $value )
 		{
 			if (preg_match( "/{$this->lang_alph_regex}/u", $value->{'placeholder'} ) ) 
 			{
-				$placeholder_string_source = $placeholder_string_source . "\n" . $value->{'placeholder'};
+				$outbody_string_source = $outbody_string_source . "\n" . $value->{'placeholder'};
 				continue;
 			}
 			if (preg_match( "/{$this->lang_alph_regex}/u", $value->{'content'} ) )
 			{
-				$placeholder_string_source = $placeholder_string_source . "\n" . $value->{'content'};
+				$outbody_string_source = $outbody_string_source . "\n" . $value->{'content'};
 				continue;	
 			} 
 				
 			if (preg_match( "/{$this->lang_alph_regex}/u", $value->innertext ) ) 
-				$placeholder_string_source = $placeholder_string_source . "\n" . $value->innertext;
+				$outbody_string_source = $outbody_string_source . "\n" . $value->innertext;
 		}
 
-		$placeholder_string_target_arr = explode("\n", $this->GetTranslatedText($placeholder_string_source));
+		$outbody_string_target_arr = explode("\n", $this->GetTranslatedText($outbody_string_source));
 
-		$placeholder_string_target_arr_counter = 0;
-		foreach ( $placeholder_DOM_code  as $value )
+		$outbody_string_target_arr_counter = 0;
+		foreach ( $outbody_DOM_code  as $value )
 		{
 			if (preg_match( "/{$this->lang_alph_regex}/u", $value->{'placeholder'} ) )
 			{
-				$value->{'placeholder'} = $placeholder_string_target_arr[$placeholder_string_target_arr_counter];
-				$placeholder_string_target_arr_counter++;
+				$value->{'placeholder'} = $outbody_string_target_arr[$outbody_string_target_arr_counter];
+				$outbody_string_target_arr_counter++;
 				continue;
 			}
 			if (preg_match( "/{$this->lang_alph_regex}/u", $value->{'content'} ) )
 			{
-				$value->{'content'} = $placeholder_string_target_arr[$placeholder_string_target_arr_counter];
-				$placeholder_string_target_arr_counter++;
+				$value->{'content'} = $outbody_string_target_arr[$outbody_string_target_arr_counter];
+				$outbody_string_target_arr_counter++;
 				continue;
 			}
 			if (preg_match( "/{$this->lang_alph_regex}/u", $value->innertext ) )
 			{
-				$value->innertext = $placeholder_string_target_arr[$placeholder_string_target_arr_counter];
-				$placeholder_string_target_arr_counter++;
+				$value->innertext = $outbody_string_target_arr[$outbody_string_target_arr_counter];
+				$outbody_string_target_arr_counter++;
 			}
 		}
 	}
