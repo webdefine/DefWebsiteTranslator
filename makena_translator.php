@@ -133,18 +133,36 @@ class DefTranslator
 		$placeholder_DOM_code = $this->html_DOM_code->find('*[placeholder],meta[name=description],title');
 
 		foreach ( $placeholder_DOM_code  as $value )
+		{
 			if (preg_match( "/{$this->lang_alph_regex}/u", $value->{'placeholder'} ) ) 
 				$placeholder_string_source = $placeholder_string_source . "\n" . $value->{'placeholder'};
+			if (preg_match( "/{$this->lang_alph_regex}/u", $value->{'content'} ) ) 
+				$placeholder_string_source = $placeholder_string_source . "\n" . $value->{'content'};
+			if (preg_match( "/{$this->lang_alph_regex}/u", $value->innertext ) ) 
+				$placeholder_string_source = $placeholder_string_source . "\n" . $value->innertext;
+		}
 
 		$placeholder_string_target_arr = explode("\n", $this->GetTranslatedText($placeholder_string_source));
 
 		$placeholder_string_target_arr_counter = 0;
 		foreach ( $placeholder_DOM_code  as $value )
+		{
 			if (preg_match( "/{$this->lang_alph_regex}/u", $value->{'placeholder'} ) )
 			{
 				$value->{'placeholder'} = $placeholder_string_target_arr[$placeholder_string_target_arr_counter];
 				$placeholder_string_target_arr_counter++;
 			}
+			if (preg_match( "/{$this->lang_alph_regex}/u", $value->{'content'} ) )
+			{
+				$value->{'content'} = $placeholder_string_target_arr[$placeholder_string_target_arr_counter];
+				$placeholder_string_target_arr_counter++;
+			}
+			if (preg_match( "/{$this->lang_alph_regex}/u", $value->innertext ) )
+			{
+				$value->innertext = $placeholder_string_target_arr[$placeholder_string_target_arr_counter];
+				$placeholder_string_target_arr_counter++;
+			}
+		}
 	}
 
 	public function Translate()
