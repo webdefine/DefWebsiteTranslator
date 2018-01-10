@@ -28,9 +28,6 @@ class DefTranslator
 
 	function url_get_contents ($Url) 
 	{
-    	if (!function_exists('curl_init')) 
-    		die('CURL is not installed!');
-
     	$ch = curl_init();
     	curl_setopt($ch, CURLOPT_URL, $Url);
     	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -176,6 +173,7 @@ class DefTranslator
 
 	public function Translate()
 	{
+		if ( ! function_exists('curl_init') ) die( 'CURL is not installed!' );
 		if ( $this->html_DOM_code === false ) die( 'Can\'t reach resource' );
 		if ( $this->lang_in === $this->lang_out ) die( 'No point to translate if source language and target language are the same language' ); 
 		if ( $this->lang_in !== 'en' && $this->lang_in !== 'ru' ) die( 'can\'t translate site from source language you set' );
