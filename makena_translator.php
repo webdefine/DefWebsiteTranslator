@@ -126,7 +126,7 @@ class DefTranslator
 			}
 	}
 
-	private function TranslatePlaceholders()
+	private function TranslateUnbodyContent()
 	{	
 		$placeholder_string_source = '';
 		$placeholder_string_target_arr = array();
@@ -158,7 +158,7 @@ class DefTranslator
 		$this->InitSourceContent();
 		$this->InitTargetContent();
 		$this->ExchangeDOMContent();
-		$this->TranslatePlaceholders();
+		$this->TranslateUnbodyContent();
 
 		return true;
 	}
@@ -166,9 +166,9 @@ class DefTranslator
 	public function GetTranslatedPage() { return $this->html_DOM_code->save(); }
 }
 
-/*Example part
+/*Example part*/
 	$Translator = new DefTranslator('https://makena.ru/');
 	if ($Translator->Translate() === true) echo $Translator->GetTranslatedPage();
-	else echo "Failure :(";*/
+	else echo "Failure :(";
 
 ?>
