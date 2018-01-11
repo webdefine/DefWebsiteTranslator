@@ -14,9 +14,6 @@ class DefTranslator
 	private $lang_out;
 
 	private $whole_body_text_arr = array();
-	private $mod_source_content_arr = array();
-	
-	private $target_content_arr = array();
 
 	private $entity_patterns = array('/&#8230;/','/&ndash;/','/&nbsp;/','/&(r|l)aquo;/');
 	private $entity_replacement = array('...',' - ',' ','"');
@@ -89,7 +86,7 @@ class DefTranslator
 
 		if (strlen($mod_source_content_string) <= 8000) 
 			return explode("\n",$this->GetTranslatedText($mod_source_content_string));
-		
+
 		//separation
 		$sep_mod_source_content_string_arr = array();
 		while (strlen($mod_source_content_string) > 8000)
@@ -180,8 +177,7 @@ class DefTranslator
 		$this->transl_class = new GoogleTranslate();
 
 		$DOM_body_text = $this->DOM_get_body_text( $this->html_DOM_code );
-		$this->target_content_arr = $this->array_get_trans( $this->array_modificate( $DOM_body_text ) );
-		$this->whole_body_text_arr = $this->DOM_get_changed_content( $DOM_body_text, $this->target_content_arr );
+		$this->whole_body_text_arr = $this->DOM_get_changed_content( $DOM_body_text, $this->array_get_trans( $this->array_modificate( $DOM_body_text ) ) );
 
 		$this->TranslateUnbodyContent();
 
