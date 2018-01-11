@@ -40,8 +40,11 @@ class DefTranslator
 	{
 		if ( ! class_exists( 'simple_html_dom_node' ) ) die( 'simple_html_dom_parser was not found' );
 		
-		if ( preg_match('/^https?:\/\/.*/', $UrlName) ) 
-			$this->html_DOM_code = str_get_html( $this->url_get_contents($UrlName) );
+		if ( preg_match('/^https?:\/\/.*/', $UrlName) )
+			{
+				if ( ! function_exists('curl_init') ) die( 'CURL is not installed!' );
+				$this->html_DOM_code = str_get_html( $this->url_get_contents($UrlName) );
+			}
         else 
         	$this->html_DOM_code = str_get_html( file_get_contents($UrlName) );
 
@@ -172,7 +175,6 @@ class DefTranslator
 
 	public function Translate()
 	{
-		if ( ! function_exists('curl_init') ) die( 'CURL is not installed!' );
 		if ( ! class_exists( 'GoogleTranslate' ) ) die( 'GoogleTranslate-class was not found' );
 		if ( $this->html_DOM_code === false ) die( 'Can\'t reach resource' );
 		if ( $this->lang_in === $this->lang_out ) die( 'No point to translate if source language and target language are the same language' ); 
