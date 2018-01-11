@@ -182,10 +182,9 @@ class DefTranslator
 
 		$this->transl_class = new GoogleTranslate();
 
-		$this->whole_body_text_arr = $this->DOM_get_body_text($this->html_DOM_code);
-		$this->mod_source_content_arr = $this->array_modificate($this->whole_body_text_arr);
-		$this->target_content_arr = $this->array_get_trans($this->mod_source_content_arr);
-		$this->whole_body_text_arr = $this->DOM_get_changed_content($this->whole_body_text_arr,$this->target_content_arr);
+		$DOM_body_text = $this->DOM_get_body_text( $this->html_DOM_code );
+		$this->target_content_arr = $this->array_get_trans( $this->array_modificate( $DOM_body_text ) );
+		$this->whole_body_text_arr = $this->DOM_get_changed_content( $DOM_body_text, $this->target_content_arr );
 
 		$this->TranslateUnbodyContent();
 
