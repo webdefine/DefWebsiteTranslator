@@ -72,7 +72,7 @@ class DefTranslator
 	{
 		$fixed_arr = array();
 		for ($raw = 0, $size = count($DOM_page_body_text); $raw < $size; $raw++) 
-			if (! preg_match( "/^\s*$/", $DOM_page_body_text[$raw] ) && preg_match( "/{$this->lang_alph_regex}/", $DOM_page_body_text[$raw] ) )
+			if ( preg_match( "/(?!=^\s*$){$this->lang_alph_regex}/", $DOM_page_body_text[$raw] ) )
 				$fixed_arr[] = $this->string_modificate($DOM_page_body_text[$raw]->plaintext);
 
 		return $fixed_arr;
@@ -158,7 +158,7 @@ class DefTranslator
 		for ($source_raw = 0, $target_raw = 0, $s_1 = count($DOM_body_text), $s_2 = count($translated_array); 
 			$source_raw < $s_1 && $target_raw < $s_2;
 			$source_raw++)
-			if (! preg_match( "/^\s*$/", $DOM_body_text[$source_raw] ) && preg_match( "/{$this->lang_alph_regex}/", $DOM_body_text[$source_raw] ) )
+			if ( preg_match( "/(?!=^\s*$){$this->lang_alph_regex}/", $DOM_body_text[$source_raw] ) )
 			{
 				$DOM_body_text[$source_raw]->innertext = $translated_array[$target_raw];
 				$target_raw++;
