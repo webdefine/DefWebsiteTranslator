@@ -88,11 +88,8 @@ class DefTranslator
 		$mod_source_content_string = implode("\n", $source_arr);
 
 		if (strlen($mod_source_content_string) <= 8000) 
-		{
-			$this->target_content_arr = explode("\n",$this->GetTranslatedText($mod_source_content_string));
-			return;
-		}	
-
+			return explode("\n",$this->GetTranslatedText($mod_source_content_string));
+		
 		//separation
 		$sep_mod_source_content_string_arr = array();
 		while (strlen($mod_source_content_string) > 8000)
