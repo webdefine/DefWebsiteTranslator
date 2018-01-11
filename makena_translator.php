@@ -40,7 +40,6 @@ class DefTranslator
 	function __construct($UrlName, $TargetLang = 'en', $SourceLang = 'ru')
 	{
 		if ( ! class_exists( 'simple_html_dom_node' ) ) die( 'simple_html_dom_parser was not found' );
-		if ( ! class_exists( 'GoogleTranslate' ) ) die( 'GoogleTranslate-class was not found' );
 		
 		if ( preg_match('/^https?:\/\/.*/', $UrlName) ) 
 			$this->html_DOM_code = str_get_html( $this->url_get_contents($UrlName) );
@@ -49,8 +48,6 @@ class DefTranslator
 
 		$this->lang_in = $SourceLang;
 		$this->lang_out = $TargetLang;
-
-		$this->transl_class = new GoogleTranslate();
 
 		switch ($this->lang_in) 
 		{
@@ -84,9 +81,9 @@ class DefTranslator
 
 	private function GetTranslatedText($text) { return $this->transl_class->translate($this->lang_in, $this->lang_out, $text); }
 
-	private function InitTargetContent()
+	private function array_get_trans($source_arr)
 	{
-		$mod_source_content_string = implode("\n", $this->mod_source_content_arr);
+		$mod_source_content_string = implode("\n", $source_arr);
 
 		if (strlen($mod_source_content_string) <= 8000) 
 		{
@@ -109,7 +106,7 @@ class DefTranslator
 			$target_content_string .= "\n" . $this->GetTranslatedText($sep_mod_source_content_string_arr[$raw]);
 
 		//initializing
-		$this->target_content_arr = explode("\n",$target_content_string);
+		return explode("\n",$target_content_string);
 	}
 
 	private function ExchangeDOMContent()
@@ -174,14 +171,16 @@ class DefTranslator
 	public function Translate()
 	{
 		if ( ! function_exists('curl_init') ) die( 'CURL is not installed!' );
+		if ( ! class_exists( 'GoogleTranslate' ) ) die( 'GoogleTranslate-class was not found' );
 		if ( $this->html_DOM_code === false ) die( 'Can\'t reach resource' );
 		if ( $this->lang_in === $this->lang_out ) die( 'No point to translate if source language and target language are the same language' ); 
 		if ( $this->lang_in !== 'en' && $this->lang_in !== 'ru' ) die( 'can\'t translate site from source language you set' );
 
+		$this->transl_class = new GoogleTranslate();
 		$this->InitDOMBody();
 
 		$this->InitSourceContent();
-		$this->InitTargetContent();
+		$this->target_content_arr = $this->array_get_trans($this->mod_source_content_arr);
 		$this->ExchangeDOMContent();
 		$this->TranslateUnbodyContent();
 
