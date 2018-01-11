@@ -14,7 +14,6 @@ class DefTranslator
 	private $lang_out;
 
 	private $whole_body_text_arr = array();
-	private $source_content_arr = array();
 	private $mod_source_content_arr = array();
 	
 	private $target_content_arr = array();
@@ -73,10 +72,7 @@ class DefTranslator
 	{
 		for ($raw = 0, $size = count($this->whole_body_text_arr); $raw < $size; $raw++) 
 			if (! preg_match( "/^\s*$/", $this->whole_body_text_arr[$raw] ) && preg_match( "/{$this->lang_alph_regex}/u", $this->whole_body_text_arr[$raw] ) )
-			{
-				$this->source_content_arr[] = $this->whole_body_text_arr[$raw]->plaintext;
 				$this->mod_source_content_arr[] = $this->GetTrimmedAndUnEntitiedString($this->whole_body_text_arr[$raw]->plaintext);
-			}
 	}
 
 	private function GetTranslatedText($text) { return $this->transl_class->translate($this->lang_in, $this->lang_out, $text); }
