@@ -108,15 +108,18 @@ class DefTranslator
 		return explode("\n",$target_content_string);
 	}
 
-	private function ExchangeDOMContent()
+	private function DOM_get_changed_content($DOM_body_text,$translated_array)
 	{
-		$target_content_arr_counter = 0;
-		for ($raw = 0, $size = count($this->whole_body_text_arr); $raw < $size; $raw++) 
-			if (! preg_match( "/^\s*$/", $this->whole_body_text_arr[$raw] ) && preg_match( "/{$this->lang_alph_regex}/u", $this->whole_body_text_arr[$raw] ) )
+		for ($source_raw = 0, $target_raw = 0, $s_1 = count($DOM_body_text), $s_2 = count($translated_array); 
+			$source_raw < $s_1 && $target_raw < $s_2;
+			$source_raw++)
+			if (! preg_match( "/^\s*$/", $DOM_body_text[$source_raw] ) && preg_match( "/{$this->lang_alph_regex}/u", $DOM_body_text[$source_raw] ) )
 			{
-				$this->whole_body_text_arr[$raw]->innertext = $this->target_content_arr[$target_content_arr_counter];
-				$target_content_arr_counter++;
+				$DOM_body_text[$source_raw]->innertext = $translated_array[$target_raw];
+				$target_raw++;
 			}
+
+		return $DOM_body_text;
 	}
 
 	private function TranslateUnbodyContent()
@@ -179,7 +182,7 @@ class DefTranslator
 		$this->whole_body_text_arr = $this->DOM_get_body_text($this->html_DOM_code);
 		$this->mod_source_content_arr = $this->array_modificate($this->whole_body_text_arr);
 		$this->target_content_arr = $this->array_get_trans($this->mod_source_content_arr);
-		$this->ExchangeDOMContent();
+		$this->whole_body_text_arr = $this->DOM_get_changed_content($this->whole_body_text_arr,$this->target_content_arr);
 		$this->TranslateUnbodyContent();
 
 		return true;
