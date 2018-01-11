@@ -66,13 +66,16 @@ class DefTranslator
 
 	private function DOM_get_body_text($DOM_webpage) { return $DOM_webpage->find('body',0)->find('text'); }
 
-	private function GetTrimmedAndUnEntitiedString($string) { return preg_replace($this->entity_patterns, $this->entity_replacement, trim($string)); }
+	private function string_modificate($string) { return preg_replace($this->entity_patterns, $this->entity_replacement, trim($string)); }
 
-	private function InitSourceContent()
+	private function array_modificate($DOM_page_body_text)
 	{
-		for ($raw = 0, $size = count($this->whole_body_text_arr); $raw < $size; $raw++) 
-			if (! preg_match( "/^\s*$/", $this->whole_body_text_arr[$raw] ) && preg_match( "/{$this->lang_alph_regex}/u", $this->whole_body_text_arr[$raw] ) )
-				$this->mod_source_content_arr[] = $this->GetTrimmedAndUnEntitiedString($this->whole_body_text_arr[$raw]->plaintext);
+		$fixed_arr = array();
+		for ($raw = 0, $size = count($DOM_page_body_text); $raw < $size; $raw++) 
+			if (! preg_match( "/^\s*$/", $DOM_page_body_text[$raw] ) && preg_match( "/{$this->lang_alph_regex}/u", $DOM_page_body_text[$raw] ) )
+				$fixed_arr[] = $this->string_modificate($DOM_page_body_text[$raw]->plaintext);
+
+		return $fixed_arr;
 	}
 
 	private function GetTranslatedText($text) { return $this->transl_class->translate($this->lang_in, $this->lang_out, $text); }
@@ -174,8 +177,7 @@ class DefTranslator
 
 		$this->transl_class = new GoogleTranslate();
 		$this->whole_body_text_arr = $this->DOM_get_body_text($this->html_DOM_code);
-
-		$this->InitSourceContent();
+		$this->mod_source_content_arr = $this->array_modificate($this->whole_body_text_arr);
 		$this->target_content_arr = $this->array_get_trans($this->mod_source_content_arr);
 		$this->ExchangeDOMContent();
 		$this->TranslateUnbodyContent();
