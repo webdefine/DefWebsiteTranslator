@@ -91,8 +91,8 @@ class DefTranslator
 		$sep_mod_source_content_string_arr = array();
 		while (mb_strlen($mod_source_content_string) > 5000)
 		{
-			$sep_mod_source_content_string_arr[] = substr( $mod_source_content_string, 0, strpos($mod_source_content_string, "\n", 5000) + 1);
-			$mod_source_content_string = substr( $mod_source_content_string, strpos($mod_source_content_string, "\n", 5000) );
+			$sep_mod_source_content_string_arr[] = substr( $mod_source_content_string, 0, strpos($mod_source_content_string, "\n", 4500) + 1);
+			$mod_source_content_string = substr( $mod_source_content_string, strpos($mod_source_content_string, "\n", 4500) );
 		}
 			$sep_mod_source_content_string_arr[] = $mod_source_content_string;
 
