@@ -175,6 +175,11 @@ class DefTranslator
 		return true;
 	}
 
+	private function is_transl_needed()
+	{
+		return ;
+	}
+
 	public function Translate()
 	{	
 		if ( $this->is_transl_avaliable() === false) return false;
