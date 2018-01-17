@@ -177,14 +177,15 @@ class DefTranslator
 
 	private function is_transl_needed()
 	{
-		return ;
+		if ( $this->lang_in === $this->lang_out ) return false;
+		return true;
 	}
 
 	public function Translate()
 	{	
 		if ( $this->is_transl_avaliable() === false) return false;
-		if ( $this->lang_in === $this->lang_out ) return false;
-		
+		if ( $this->is_transl_needed() === false) return false;
+
 		$this->transl_class = new GoogleTranslate();
 
 		$DOM_body_text = $this->DOM_get_body_text( $this->html_DOM_code );
