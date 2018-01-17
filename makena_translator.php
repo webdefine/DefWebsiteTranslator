@@ -183,9 +183,8 @@ class DefTranslator
 
 	public function Translate()
 	{	
-		if ( $this->is_transl_avaliable() === false) return false;
-		if ( $this->is_transl_needed() === false) return false;
-
+		if ( $this->is_transl_avaliable() === false || $this->is_transl_needed() === false) return false;
+	
 		$this->transl_class = new GoogleTranslate();
 
 		$DOM_body_text = $this->DOM_get_body_text( $this->html_DOM_code );
