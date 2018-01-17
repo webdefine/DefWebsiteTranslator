@@ -169,16 +169,17 @@ class DefTranslator
 
 	private function is_transl_avaliable()
 	{
-		return ;
+		if ( $this->html_DOM_code === false ) return false; //can't reach resource
+		if ( ! class_exists( 'GoogleTranslate' ) ) return false;
+		if ( $this->lang_in !== 'en' && $this->lang_in !== 'ru' ) return false; // source langs are ru and en only
+		return true;
 	}
 
 	public function Translate()
-	{
-		if ( ! class_exists( 'GoogleTranslate' ) ) die( 'GoogleTranslate-class was not found' );
-		if ( $this->html_DOM_code === false ) die( 'Can\'t reach resource' );
-		if ( $this->lang_in === $this->lang_out ) die( 'No point to translate if source language and target language are the same language' ); 
-		if ( $this->lang_in !== 'en' && $this->lang_in !== 'ru' ) die( 'can\'t translate site from source language you set' );
-
+	{	
+		if ( $this->is_transl_avaliable() === false) return false;
+		if ( $this->lang_in === $this->lang_out ) return false;
+		
 		$this->transl_class = new GoogleTranslate();
 
 		$DOM_body_text = $this->DOM_get_body_text( $this->html_DOM_code );
