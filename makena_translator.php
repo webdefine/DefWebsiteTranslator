@@ -22,16 +22,16 @@ class DefTranslator
 
 	private $transl_class;
 
-	function url_get_contents ($Url) 
+	function url_get_contents ($Url)
 	{
-    	$ch = curl_init();
-    	curl_setopt($ch, CURLOPT_URL, $Url);
-    	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-    	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    	$output = curl_exec($ch);
-    	curl_close($ch);
-    	return $output;
-    }
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $Url);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$output = curl_exec($ch);
+		curl_close($ch);
+		return $output;
+	}
 
 	function __construct($UrlName, $TargetLang = 'en', $SourceLang = 'ru')
 	{
@@ -165,6 +165,11 @@ class DefTranslator
 			}
 
 		return $DOM_body_text;
+	}
+
+	private function is_transl_avaliable()
+	{
+		return ;
 	}
 
 	public function Translate()
