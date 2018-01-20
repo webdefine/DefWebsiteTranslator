@@ -176,11 +176,7 @@ class DefTranslator
 		return true;
 	}
 
-	private function is_transl_needed()
-	{
-		if ( $this->lang_in === $this->lang_out ) return false;
-		return true;
-	}
+	private function is_transl_needed() { return $this->lang_in !== $this->lang_out; }
 
 	public function Translate()
 	{	
