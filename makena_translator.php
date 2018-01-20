@@ -65,8 +65,8 @@ class DefTranslator
 	}
 
 	private function DOM_get_body_text($DOM_webpage) { return $DOM_webpage->find('body',0)->find('text'); }
-
 	private function string_modificate($string) { return preg_replace($this->entity_patterns, $this->entity_replacement, trim($string)); }
+	private function contains_source($string) { return preg_match( "/{$this->lang_alph_regex}/", $string ); }
 
 	private function array_modificate($DOM_page_body_text)
 	{
@@ -113,18 +113,18 @@ class DefTranslator
 
 		foreach ( $outbody_DOM_code  as $value )
 		{
-			if (preg_match( "/{$this->lang_alph_regex}/", $value->{'placeholder'} ) ) 
+			if ( $this->contains_source( $value->{'placeholder'} ) ) 
 			{
 				$outbody_string_source .= "\n" . $value->{'placeholder'};
 				continue;
 			}
-			if (preg_match( "/{$this->lang_alph_regex}/", $value->{'content'} ) )
+			if ( $this->contains_source( $value->{'content'} ) )
 			{
 				$outbody_string_source .= "\n" . $value->{'content'};
 				continue;	
 			} 
 				
-			if (preg_match( "/{$this->lang_alph_regex}/", $value->innertext ) ) 
+			if ( $this->contains_source( $value->innertext ) ) 
 				$outbody_string_source .= "\n" . $value->innertext;
 		}
 
@@ -133,19 +133,19 @@ class DefTranslator
 		$outbody_string_target_arr_counter = 0;
 		foreach ( $outbody_DOM_code  as $value )
 		{
-			if (preg_match( "/{$this->lang_alph_regex}/", $value->{'placeholder'} ) )
+			if ( $this->contains_source( $value->{'placeholder'} ) )
 			{
 				$value->{'placeholder'} = $outbody_string_target_arr[$outbody_string_target_arr_counter];
 				$outbody_string_target_arr_counter++;
 				continue;
 			}
-			if (preg_match( "/{$this->lang_alph_regex}/", $value->{'content'} ) )
+			if ( $this->contains_source( $value->{'content'} ) )
 			{
 				$value->{'content'} = $outbody_string_target_arr[$outbody_string_target_arr_counter];
 				$outbody_string_target_arr_counter++;
 				continue;
 			}
-			if (preg_match( "/{$this->lang_alph_regex}/", $value->innertext ) )
+			if ( $this->contains_source( $value->innertext ) )
 			{
 				$value->innertext = $outbody_string_target_arr[$outbody_string_target_arr_counter];
 				$outbody_string_target_arr_counter++;
