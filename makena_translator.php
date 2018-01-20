@@ -67,12 +67,13 @@ class DefTranslator
 	private function DOM_get_body_text($DOM_webpage) { return $DOM_webpage->find('body',0)->find('text'); }
 	private function string_modificate($string) { return preg_replace($this->entity_patterns, $this->entity_replacement, trim($string)); }
 	private function contains_source($string) { return preg_match( "/{$this->lang_alph_regex}/", $string ); }
+	private function is_white_or_empty($string) { return ctype_space($string) || $string === "" ; }
 
 	private function array_modificate($DOM_page_body_text)
 	{
 		$fixed_arr = array();
 		for ($raw = 0, $size = count($DOM_page_body_text); $raw < $size; $raw++) 
-			if ( preg_match( "/(?!=^\s*$){$this->lang_alph_regex}/", $DOM_page_body_text[$raw] ) )
+			if ( ! $this->is_white_or_empty( $DOM_page_body_text[$raw] ) && $this->contains_source( $DOM_page_body_text[$raw] ) )
 				$fixed_arr[] = $this->string_modificate($DOM_page_body_text[$raw]->plaintext);
 
 		return $fixed_arr;
@@ -158,7 +159,7 @@ class DefTranslator
 		for ($source_raw = 0, $target_raw = 0, $s_1 = count($DOM_body_text), $s_2 = count($translated_array); 
 			$source_raw < $s_1 && $target_raw < $s_2;
 			$source_raw++)
-			if ( preg_match( "/(?!=^\s*$){$this->lang_alph_regex}/", $DOM_body_text[$source_raw] ) )
+			if ( ! $this->is_white_or_empty( $DOM_body_text[$source_raw] ) && $this->contains_source( $DOM_body_text[$source_raw] ) )
 			{
 				$DOM_body_text[$source_raw]->innertext = $translated_array[$target_raw];
 				$target_raw++;
